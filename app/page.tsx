@@ -14,7 +14,7 @@ export default function Home() {
 
         {/* Blog Posts  */}
         <section className="bg-gray-100 min-h-screen py-12 px-6">
-          <h2 className="text-3xl font-semibold text-center mb-10">All Posts</h2>
+          <h2 className="text-3xl font-semibold text-center mb-10">Recent Posts</h2>
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ">
             {[...Array(8)].map((_, i) => (
               <article key={i} className="flex justify-center">
