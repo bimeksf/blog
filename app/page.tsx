@@ -1,6 +1,16 @@
 import Card from "@/components/Card";
+import Link from "next/link";
+import { getAllPosts } from "@/data";
+import { notFound } from "next/navigation";
 
 export default function Home() {
+
+const posts = getAllPosts()
+
+  if (posts.length === 0) {
+    return notFound();
+  }
+
   return (
     <div className="bg-white text-gray-800">
       <main>
@@ -16,9 +26,24 @@ export default function Home() {
         <section className="bg-gray-100 min-h-screen py-12 px-6">
           <h2 className="text-3xl font-semibold text-center mb-10">Recent Posts</h2>
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ">
-            {[...Array(8)].map((_, i) => (
-              <article key={i} className="flex justify-center">
-                <Card />
+            {posts.map((post) => (
+              
+              <article className="flex justify-center" key={post.slug}>
+                <Link href={`/posts/${post.slug}`}  >
+
+                <Card
+                
+                
+              title={post.title}
+                  date={post.date}
+                  tags={post.tags}
+                  description={post.description}
+                  image={post.image}
+                  
+                  
+                  
+                  />
+                  </Link>
               </article>
             ))}
           </div>

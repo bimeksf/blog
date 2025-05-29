@@ -1,25 +1,33 @@
 import CardDetail from "@/components/CardDetail"
+import { notFound } from "next/navigation"
+import { getPostBySlug  } from "@/data";
 
 interface ParamsInterface {
-    slug:  string
-
+  slug: string
 }
 
-export default function postDetail({params}: { params: ParamsInterface }){
+export default async function PostDetail({ params }: { params: ParamsInterface }) {
+  const { slug } = params
 
-    return (
-            <>
-       <h1>Post Detail: {params.slug}</h1>
-       <main>
+  const post = await getPostBySlug(slug)
 
-        <section className="flex flex-col  min-h-screen">
+  if (!post) {
+    return notFound()
+  }
 
-       <CardDetail/>
-
+  return (
+    <>
+      <main>
+        <section className="flex flex-col min-h-screen px-4 py-8">
+          <CardDetail
+            title={post.title}
+            date={post.date}
+            tags={post.tags}
+            author={post.author}
+            description={post.description}
+          />
         </section>
-       </main>
-
-            </>
-
-    )
+      </main>
+    </>
+  )
 }
